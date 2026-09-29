@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import base64
+import importlib.util
 import json
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from urllib.parse import urlparse
@@ -114,9 +116,13 @@ def ollama_post(base_url: str, endpoint: str, payload: dict) -> dict:
 def get_video(source: str, work: Path) -> Path:
     parsed = urlparse(source)
     if parsed.scheme in {"http", "https"}:
-        require_tool("yt-dlp")
+        if importlib.util.find_spec("yt_dlp") is None:
+            raise ExtractionError(
+                "URL input requires the url extra. Install with uv tool install '.[url]'"
+            )
         template = str(work / "download.%(ext)s")
-        run("yt-dlp", "--no-playlist", "--max-filesize", "500M", "-o", template, source)
+        run(sys.executable, "-m", "yt_dlp", "--no-playlist", "--max-filesize",
+            "500M", "-o", template, source)
         files = list(work.glob("download.*"))
         if len(files) != 1:
             raise ExtractionError("yt-dlp did not produce one video file")
@@ -207,6 +213,7 @@ def merge_recipe(transcript: str, notes: list[str], source: str, base_url: str) 
         "model": RECIPE_MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "format": RECIPE_SCHEMA, "stream": False, "think": False, "keep_alive": 0,
+        "options": {"temperature": 0},
     })
     try:
         data = json.loads(answer["message"]["content"])

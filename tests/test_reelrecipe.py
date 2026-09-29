@@ -100,6 +100,19 @@ def test_extract_rejects_missing_file() -> None:
         pipeline.extract("/missing/cooking.mp4", no_ocr=True)
 
 
+def test_url_download_uses_installed_extra(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(pipeline.importlib.util, "find_spec", lambda name: object())
+
+    def fake_run(*args: str) -> None:
+        assert args[0:3] == (pipeline.sys.executable, "-m", "yt_dlp")
+        (tmp_path / "download.mp4").write_bytes(b"video")
+
+    monkeypatch.setattr(pipeline, "run", fake_run)
+    assert pipeline.get_video("https://example.com/cooking", tmp_path).name == "download.mp4"
+
+
 def test_cli_render(tmp_path: Path, recipe: Recipe, capsys: pytest.CaptureFixture[str]) -> None:
     path = tmp_path / "recipe.json"
     path.write_text(json.dumps(recipe.to_dict()))
