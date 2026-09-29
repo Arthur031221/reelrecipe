@@ -1,0 +1,66 @@
+[project]
+name = "reelrecipe"
+version = "0.1.0"
+description = "Turn a cooking video into a structured recipe card, entirely on your machine."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Arthur", email = "levi74108520963@gmail.com" }]
+requires-python = ">=3.12"
+keywords = ["recipe", "video", "whisper", "mlx", "ollama", "ocr", "mealie", "cooking", "offline"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Text Processing",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "mlx-whisper==0.4.3; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "requests==2.32.5",
+]
+
+[project.optional-dependencies]
+url = ["yt-dlp==2026.8.19"]
+
+[project.urls]
+Homepage = "https://github.com/Arthur031221/reelrecipe"
+Issues = "https://github.com/Arthur031221/reelrecipe/issues"
+Changelog = "https://github.com/Arthur031221/reelrecipe/blob/main/CHANGELOG.md"
+
+[project.scripts]
+reelrecipe = "reelrecipe.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.9",
+]
+
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reelrecipe"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/reelrecipe", "tests", "README.md", "LICENSE", "CHANGELOG.md"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

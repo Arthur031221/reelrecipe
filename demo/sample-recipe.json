@@ -1,0 +1,58 @@
+{
+  "title": "Tomato pasta",
+  "ingredients": [
+    {
+      "name": "tomato",
+      "quantity": "2",
+      "unit": "tomatoes",
+      "note": null
+    },
+    {
+      "name": "olive oil",
+      "quantity": "1",
+      "unit": "tablespoon",
+      "note": null
+    },
+    {
+      "name": "pasta",
+      "quantity": "200",
+      "unit": "grams",
+      "note": null
+    },
+    {
+      "name": "salt",
+      "quantity": "a pinch",
+      "unit": null,
+      "note": null
+    }
+  ],
+  "steps": [
+    {
+      "text": "Boil 200g of pasta in salted water",
+      "time_minutes": null
+    },
+    {
+      "text": "Chop 2 tomatoes",
+      "time_minutes": null
+    },
+    {
+      "text": "Cook the tomatoes in 1 tbsp of olive oil for 5 minutes",
+      "time_minutes": null
+    },
+    {
+      "text": "Combine the pasta and tomatoes",
+      "time_minutes": null
+    },
+    {
+      "text": "Serve too",
+      "time_minutes": null
+    }
+  ],
+  "servings": null,
+  "times": {
+    "prep_minutes": null,
+    "cook_minutes": null,
+    "total_minutes": null
+  },
+  "source": "demo/sample.mp4"
+}
