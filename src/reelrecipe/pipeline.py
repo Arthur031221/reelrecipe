@@ -233,10 +233,10 @@ def extract(
 ) -> tuple[Recipe, str, list[str]]:
     if not 0 <= max_frames <= 24:
         raise ExtractionError("--max-frames must be between 0 and 24")
-    require_tool("ffmpeg")
     with tempfile.TemporaryDirectory(prefix="reelrecipe-") as directory:
         work = Path(directory)
         path = get_video(source, work)
+        require_tool("ffmpeg")
         duration, has_audio = video_info(path)
         transcript = transcribe(path, work, has_audio, whisper_model)
         notes = [] if no_ocr or max_frames == 0 else read_frames(
