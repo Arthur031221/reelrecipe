@@ -79,6 +79,12 @@ reelrecipe render --help
 - OCR samples frames rather than reading every frame. Increase `--max-frames` for videos with brief ingredient overlays.
 - Video and model files are kept out of Git. The sample video is synthetic. The recipe quality benchmark on ten licensed cooking videos remains to be measured.
 
+## Related projects
+
+- [receiptwise](https://github.com/Arthur031221/receiptwise): Same local extraction shape, structured output from a real-world photo instead of a video.
+- [snipmd](https://github.com/Arthur031221/snipmd): A different OCR use, equations instead of on-screen ingredient text, both run locally.
+- [labexplain](https://github.com/Arthur031221/labexplain): Another tool that turns a real document into structured, checkable local output.
+
 ## Development
 
 ```sh
